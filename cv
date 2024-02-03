@@ -1,0 +1,184 @@
+#include<windows.h>
+#include<sqlext.h>
+#include<sql.h>
+#include<stdio.h>
+#define TEST_LEN 50
+int main()
+{
+    int c;
+    char ch='y';
+    SQLINTEGER id_no,contactno;
+SQLCHAR name[TEST_LEN+1], fname[TEST_LEN+1], dob[TEST_LEN+1], basiceducation[TEST_LEN+1], technicaleducation[TEST_LEN+1], address[TEST_LEN+1],
+experience[TEST_LEN+1], technicalskills[TEST_LEN+1], interests[TEST_LEN+1],
+ objective[TEST_LEN+1];
+    HENV hEnv=NULL;
+    HDBC hDBC=NULL;
+    HSTMT hStmt=NULL;
+UCHAR szSqlStr[]="insert into optimist1(id_no,name,fname,dob,address,contactno,objective, basiceducation,technicaleducation,experience,technicalskills,interests)
+values(?,?,?,?,?,?,?,?,?,?,?,?)";
+    UCHAR szSqlStr1[]="delete * from optimist1 where id_no=?";
+    UCHAR szSqlStr2[]="select * from optimist1 where id_no=?";
+    UCHAR szDSN[SQL_MAX_DSN_LENGTH]="devi";
+    UCHAR *szUID=NULL;
+    UCHAR *szPasswd=NULL;
+    UCHAR szModel1[128];
+    UCHAR szModel2[128];
+    UCHAR szModel3[128];
+    UCHAR szModel4[128];
+    UCHAR szModel5[128];
+    UCHAR szModel6[128];
+    UCHAR szModel7[128];
+    UCHAR szModel8[128];
+    UCHAR szModel9[128];
+    UCHAR szModel10[128];
+    UCHAR szModel11[128];
+    UCHAR szModel12[128];
+    SDWORD cbModel1;
+    SDWORD cbModel2;
+    SDWORD cbModel3;
+    SDWORD cbModel4;
+    SDWORD cbModel5;
+    SDWORD cbModel6;
+    SDWORD cbModel7;
+    SDWORD cbModel8;
+    SDWORD cbModel9;
+    SDWORD cbModel10;
+    SDWORD cbModel11;
+    SDWORD cbModel12;
+    SDWORD cbtest=SQL_NTS;
+    RETCODE retcode;
+    do
+    {
+        printf("\t\t.........................\n");
+        printf("\t\t RESUME BUILDER");
+        printf("\n\t\t.........................\n");
+        printf("\n1.Entry Module \n2.Cancellation Module \n3.Display Module");
+        printf("\nEnter your option:");
+        scanf("%d",&c);
+        switch(c)
+        {
+        case 1:
+            printf("\nEntry Module\n");
+            printf("\n\nEnter the id_no:");
+            scanf("%d",&id_no);
+            printf("\nEnter the name:");
+            scanf("%s",&name);
+            printf("\nEnter the father name:");
+            scanf("%s",&fname);
+            printf("\nEnter the Date of Birth:");
+            scanf("%s",&dob);
+            printf("\nEnter the address:");
+            scanf("%s",&address);
+            printf("\nEnter the contact no:");
+            scanf("%d",&contactno);
+            printf("\nEnter the objective:");
+            scanf("%s",&objective);
+            printf("\nEnter the basic education:");
+            scanf("%s",&basiceducation);
+            printf("\nEnter the technical education:");
+            scanf("%s",&technicaleducation);
+            printf("\nEnter the experience:");
+            scanf("%s",&experience);
+            printf("\nEnter the technical skills:");
+            scanf("%s",&technicalskills);
+            printf("\nEnter the interests:");
+            scanf("%s",&interests);
+            SQLAllocEnv(&hEnv);
+            SQLAllocConnect(hEnv,&hDBC);
+            retcode=SQLConnect(hDBC,szDSN,SQL_NTS,szUID,SQL_NTS,szPasswd,SQL_NTS);
+            if(retcode==SQL_SUCCESS||retcode==SQL_SUCCESS_WITH_INFO)
+            {
+                retcode=SQLAllocStmt(hDBC,&hStmt);
+                retcode=SQLPrepare(hStmt,szSqlStr,sizeof(szSqlStr));
+ SQLBindParameter(hStmt,1,SQL_PARAM_INPUT,SQL_C_LONG,
+SQL_INTEGER,1,0,&id_no,0,&id_no);
+            SQLBindParameter(hStmt,2,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,name,0,&cbtest);
+            SQLBindParameter(hStmt,3,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,fname,0,&cbtest);
+            SQLBindParameter(hStmt,4,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,dob,0,&cbtest);
+            SQLBindParameter(hStmt,5,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,address,0,&cbtest);
+            SQLBindParameter(hStmt,6,SQL_PARAM_INPUT,SQL_C_LONG,
+SQL_INTEGER,1,0,&contactno,0,&contactno);
+            SQLBindParameter(hStmt,7,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,objective,0,&cbtest);
+            SQLBindParameter(hStmt,8,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,basiceducation,0,&cbtest);
+            SQLBindParameter(hStmt,9,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,technicaleducation,0,&cbtest);
+            SQLBindParameter(hStmt,10,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,experience,0,&cbtest);
+            SQLBindParameter(hStmt,11,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,technicalskills,0,&cbtest);
+            SQLBindParameter(hStmt,12,SQL_PARAM_INPUT,SQL_C_CHAR,
+SQL_CHAR,TEST_LEN,0,interests,0,&cbtest);
+            retcode=SQLExecute(hStmt);
+            printf("\nResume is inserted\n\n");
+            }
+            break;
+        case 2:
+            printf("\nCancellation module\n");
+            SQLAllocEnv(&hEnv);
+            SQLAllocConnect(hEnv,&hDBC);
+            retcode=SQLConnect(hDBC,szDSN,SQL_NTS,szUID,SQL_NTS,szPasswd,SQL_NTS);
+                        if(retcode==SQL_SUCCESS||retcode==SQL_SUCCESS_WITH_INFO)
+            {
+                retcode=SQLAllocStmt(hDBC,&hStmt);
+                retcode=SQLPrepare(hStmt,szSqlStr1,sizeof(szSqlStr1));
+            SQLBindParameter(hStmt,1,SQL_PARAM_INPUT,SQL_C_LONG,
+SQL_INTEGER,1,0,&id_no,0,&id_no);
+                printf("\nEnter the  ID NO: ");
+                scanf("%d",&id_no);
+                retcode=SQLExecute(hStmt);
+                printf("\nResume is deleted\n\n");
+            }
+            break;
+        case 3:
+            printf("\nDisplay module\n");
+            SQLAllocEnv(&hEnv);
+            SQLAllocConnect(hEnv,&hDBC);
+            retcode=SQLConnect(hDBC,szDSN,SQL_NTS,szUID,SQL_NTS,szPasswd,SQL_NTS);
+            if(retcode==SQL_SUCCESS||retcode==SQL_SUCCESS_WITH_INFO)
+            {
+                retcode=SQLAllocStmt(hDBC,&hStmt);
+                retcode=SQLPrepare(hStmt,szSqlStr2,sizeof(szSqlStr2));
+                SQLBindParameter(hStmt,1,SQL_PARAM_INPUT,SQL_C_LONG,
+SQL_INTEGER,1,0,&id_no,0,&id_no);
+                printf("\nEnter the  ID NO: ");
+                scanf("%d",&id_no);
+                retcode=SQLExecute(hStmt);
+            SQLBindCol(hStmt,1,SQL_C_CHAR,szModel1,sizeof(szModel1),&cbModel1);
+            SQLBindCol(hStmt,2,SQL_C_CHAR,szModel2,sizeof(szModel2),&cbModel2);
+
+
+            SQLBindCol(hStmt,3,SQL_C_CHAR,szModel3,sizeof(szModel3),&cbModel3);
+            SQLBindCol(hStmt,4,SQL_C_CHAR,szModel4,sizeof(szModel4),&cbModel4);
+            SQLBindCol(hStmt,5,SQL_C_CHAR,szModel5,sizeof(szModel5),&cbModel5);                SQLBindCol(hStmt,6,SQL_C_CHAR,szModel6,sizeof(szModel6),&cbModel6);
+            SQLBindCol(hStmt,7,SQL_C_CHAR,szModel7,sizeof(szModel7),&cbModel7);
+            SQLBindCol(hStmt,8,SQL_C_CHAR,szModel8,sizeof(szModel8),&cbModel8);
+            SQLBindCol(hStmt,9,SQL_C_CHAR,szModel9,sizeof(szModel9),&cbModel9);
+        SQLBindCol(hStmt,10,SQL_C_CHAR,szModel10,sizeof(szModel10),&cbModel10);
+        SQLBindCol(hStmt,11,SQL_C_CHAR,szModel11,sizeof(szModel11),&cbModel11);
+        SQLBindCol(hStmt,12,SQL_C_CHAR,szModel12,sizeof(szModel12),&cbModel12);
+                retcode=SQLFetch(hStmt);
+                if(retcode==SQL_SUCCESS||retcode==SQL_SUCCESS_WITH_INFO)
+                {
+printf("\n\nNAME :%s\n\nFATHER NAME :%s\n\nDATE OF BIRTH :%s\n\nADDRESS :%s\n\nCONTACT NO :%s\n\nOBJECTIVE :%s\n\nBASIC EDUCATION :%s\n\nTECHNICAL EDUCATION :%s\n\nEXPERIENCE :%s\n\nTECHNICAL SKILLS :%s\n\nINTERESTS:%s\n\n",szModel2, szModel3,szModel4,szModel5,szModel6,szModel7,szModel8,szModel9,szModel10,szModel11,szModel12);
+                    retcode=SQLFetch(hStmt);
+                }
+            else
+            {
+                printf("\n Sorry the record is not found\n\n");
+            }
+            }
+            break;
+        }
+        flushall();
+        printf("\nDo you want to continue?(y/n):");
+        scanf("%s",&ch);
+    }
+    while(ch=='y');
+    return 0;
+    }
